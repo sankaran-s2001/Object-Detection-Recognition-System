@@ -1,4 +1,5 @@
 --prefer-binary
+numpy==1.26.4  # Force NumPy 1.x (critical for compatibility)
 streamlit==1.38.0
 opencv-python-headless==4.12.0.88
 torch==2.2.0
