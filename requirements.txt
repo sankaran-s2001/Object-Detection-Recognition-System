@@ -1,11 +1,22 @@
---prefer-binary
--f https://download.pytorch.org/whl/cpu/torch_stable.html
+# Force numpy <2 to avoid conflicts
+numpy<2
 
+# Streamlit for web app
 streamlit==1.38.0
+
+# OpenCV headless for image processing
 opencv-python-headless==4.12.0.88
+
+# PyTorch CPU version
 torch==2.2.0+cpu
 torchvision==0.17.0+cpu
+
+# Ultralytics YOLOv8
 ultralytics==8.3.35
+
+# Data handling
 pandas==2.2.2
+
+# Build tools
 setuptools>=68.0.0
 wheel>=0.38.0
