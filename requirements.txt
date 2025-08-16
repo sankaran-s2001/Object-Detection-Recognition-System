@@ -1,12 +1,11 @@
 --prefer-binary
-numpy==1.24.4  # Force NumPy 1.x (critical for compatibility)
+-f https://download.pytorch.org/whl/cpu/torch_stable.html
+
 streamlit==1.38.0
 opencv-python-headless==4.12.0.88
-torch==2.2.0
-torchvision==0.17.0
+torch==2.2.0+cpu
+torchvision==0.17.0+cpu
 ultralytics==8.3.35
 pandas==2.2.2
 setuptools>=68.0.0
 wheel>=0.38.0
--f https://download.pytorch.org/whl/cpu/torch_stable.html
-
