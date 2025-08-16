@@ -1,11 +1,11 @@
-# Force numpy <2 to avoid conflicts
+# Force numpy <2 to avoid Torch/YOLOv8 issues
 numpy<2
 
 # Streamlit for web app
 streamlit==1.38.0
 
-# OpenCV headless for image processing
-opencv-python-headless==4.12.0.88
+# OpenCV headless compatible with NumPy<2
+opencv-python-headless==4.11.0.46
 
 # PyTorch CPU version
 torch==2.2.0+cpu
