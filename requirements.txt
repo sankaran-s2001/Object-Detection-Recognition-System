@@ -1,6 +1,8 @@
 --prefer-binary
 streamlit==1.38.0
 opencv-python-headless==4.12.0.88
+torch==2.2.1+cpu
+torchvision==0.17.0+cpu
 ultralytics==8.3.35
 pandas==2.2.2
 setuptools>=68.0.0
