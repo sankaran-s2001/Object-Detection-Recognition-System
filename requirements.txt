@@ -1,23 +1,9 @@
-# Force numpy <2 to avoid Torch/YOLOv8 issues
 numpy<2
-
-# Streamlit for web app
 streamlit==1.38.0
-
-# OpenCV headless compatible with NumPy<2
 opencv-python-headless==4.11.0.86
-
-# PyTorch CPU version
-torch==2.2.0+cpu
-torchvision==0.17.0+cpu
-
-# Ultralytics YOLOv8
+torch==2.2.0
+torchvision==0.17.0
 ultralytics==8.3.35
-
-# Data handling
 pandas==2.2.2
-
-# Build tools
 setuptools>=68.0.0
 wheel>=0.38.0
-
