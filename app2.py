@@ -9,7 +9,7 @@ import base64
 # ----------------- Page Config -----------------
 st.set_page_config(
     page_title="Object Detection",
-    page_icon="🚗",
+    page_icon="🔍",
     layout="centered"
 )
 
@@ -40,34 +40,44 @@ def set_background(image_file):
         unsafe_allow_html=True
     )
 
-# Make sure background image is inside repo
 set_background("background_image.jpg")
 
 # ----------------- Load YOLOv8m Model -----------------
 @st.cache_resource
 def load_model():
-    return YOLO("yolov8m.pt")   # Medium model (balance between speed & accuracy)
+    return YOLO("yolov8m.pt")   # Medium model pretrained on COCO dataset (80 classes)
 
 model = load_model()
 
 # ----------------- Title & Sidebar -----------------
-st.title("🚗 Vehicle Object Detection System")
+st.title("Object Detection System")
 st.markdown(
     "Upload an **image** or try a demo sample. "
-    "The AI will automatically detect vehicles and show counts."
+    "The AI will automatically detect objects (trained on the **COCO dataset: 80 classes**)."
 )
 
 st.sidebar.title("ℹ️ About this App")
 st.sidebar.markdown("""
-This demo uses **YOLOv8m** (medium model) to detect vehicles.  
-- **Step 1:** Upload an image or choose a demo.  
-- **Step 2:** AI highlights detected vehicles.  
-- **Step 3:** A chart shows detected object counts.  
+This demo uses **YOLOv8m** (medium model) - pretrained on the **COCO dataset (80 classes)**.
+  
+That means it can detect **people, vehicles, animals, everyday objects**, and more.""")  
 
-✅ Optimized for recruiters and non-technical users.
+st.sidebar.markdown("---")
+
+st.sidebar.markdown("""
+👨‍💻 **How it works:**  
+- **Step 1:** Upload an image or use the demo image.  
+- **Step 2:** The AI will highlight detected objects with bounding boxes.  
+- **Step 3:** A chart shows how many of each object were detected.  
+
+✅ Works with a wide range of everyday images.
 """)
 
-st.sidebar.info("📌 Tip: Upload clear images (cars, bikes, trucks, etc.) for best results.")
+st.sidebar.info("📌 Tip: Try uploading images with people, animals, or street scenes to see diverse detections.")
+
+st.sidebar.markdown("---")
+st.sidebar.markdown("👨‍💻 Created by **Sankaran S**")
+
 
 # ----------------- Main App -----------------
 st.markdown("### 📂 Upload your own image **or** use demo sample")
@@ -84,7 +94,7 @@ if choice == "Upload File":
         filepath = tfile.name
         file_extension = uploaded_file.name.split(".")[-1].lower()
 else:
-    filepath = "test_image1.jpg"   # Put a demo image in your repo
+    filepath = "test_image1.jpg"   
     file_extension = "jpg"
 
 # ----------------- Detection -----------------
@@ -102,21 +112,24 @@ if filepath is not None and file_extension in ["jpg", "png", "jpeg"]:
         label = model.names[cls]
         detections.append(label)
 
-    df = pd.DataFrame(detections, columns=["Object"])
-    counts = df["Object"].value_counts().reset_index()
-    counts.columns = ["Object", "Count"]
+    if len(detections) > 0:
+        df = pd.DataFrame(detections, columns=["Object"])
+        counts = df["Object"].value_counts().reset_index()
+        counts.columns = ["Object", "Count"]
 
-    # Layout: image left, chart right
-    col1, col2 = st.columns(2)
+        # Layout: image left, chart right
+        col1, col2 = st.columns(2)
 
-    with col1:
-        st.image(annotated_img, channels="BGR", caption="🖼️ Processed Image with Detected Objects")
+        with col1:
+            st.image(annotated_img, channels="BGR", caption="🖼️ Processed Image with Detected Objects")
 
-    with col2:
-        st.markdown("### 📊 Objects Detected (Counts)")
-        st.bar_chart(counts.set_index("Object"))
+        with col2:
+            st.markdown("### 📊 Objects Detected (Counts)")
+            st.bar_chart(counts.set_index("Object"))
 
-    st.markdown("✅ The chart shows the number of each type of object detected in the image.")
+        st.markdown("✅ The chart shows the number of each type of object detected in the image.")
+    else:
+        st.warning("⚠️ No objects detected in this image. Try another one!")
 
     # Cleanup only if user uploaded
     if choice == "Upload File" and uploaded_file is not None:
