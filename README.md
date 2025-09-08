@@ -7,6 +7,8 @@ Detect objects in images instantly using a simple AI-powered web app.
 
 ![App Screenshot](app_screenshot.jpg)
 
+**[Live Demo - Try it here!](https://object-detection-recognition-system-gvtatwq7wyqx7ws9xohbwq.streamlit.app/)**
+
 ***
 
 ## 🎯 What This Project Does
