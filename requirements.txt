@@ -1,9 +1,4 @@
-numpy<2
-streamlit==1.38.0
-opencv-python-headless==4.11.0.86
-torch==2.2.0
-torchvision==0.17.0
-ultralytics==8.3.35
-pandas==2.2.2
-setuptools>=68.0.0
-wheel>=0.38.0
+streamlit
+opencv-python-headless
+ultralytics
+pandas
